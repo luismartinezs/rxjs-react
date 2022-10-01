@@ -1,25 +1,18 @@
-import { createRef, FC, useEffect, useState } from "react";
-import { store } from "../utils/documentTitle";
+import { createRef, FC, useEffect } from "react";
 
-export const DocumentTitle: FC = () => {
-  const [title, setTitle] = useState("React App");
+export const DocumentTitle: FC<{ title: string }> = ({ title }) => {
   const titleRef = createRef<HTMLSpanElement>();
-  const { subscribe } = store;
-  // subscribe to title change
 
   useEffect(() => {
     const oldTitle = document.title;
 
-    const subscription = subscribe(({ title }) => {
-      document.title = title;
+    document.title = title;
 
-      // programmatically focus on span so that SR announces it
-      if (titleRef.current) titleRef.current.focus();
-      setTitle(title);
-    });
+    if (titleRef.current) {
+      titleRef.current.focus();
+    }
 
     return () => {
-      subscription();
       document.title = oldTitle;
     };
   }, []);
