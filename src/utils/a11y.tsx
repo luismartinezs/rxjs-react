@@ -5,6 +5,7 @@ import React, {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import {
@@ -40,6 +41,13 @@ type Context = Readonly<{
   }
    */
   useRegisteredId: (key: StringOrFalsy) => HTMLID;
+  /**
+   * Use this in "stacked" elements such as modals, to see which one is "on top"
+   */
+  createComponentSpecificityId: () => {
+    isComponentMostSpecific: () => boolean;
+    destroy: () => void;
+  };
 }>;
 
 const developerWarning = (): never => {
@@ -50,6 +58,7 @@ const developerWarning = (): never => {
 const A11yContext = createContext<Context>({
   useLabelledOrDescribedBy: developerWarning,
   useRegisteredId: developerWarning,
+  createComponentSpecificityId: developerWarning,
 });
 
 const useRegisteredIdLookup = () => {
@@ -107,6 +116,7 @@ export const useId = (): string => {
 };
 
 export const A11yProvider: FC<{ children: ReactNode }> = ({ children }) => {
+  const componentStack = useRef<symbol[]>([]);
   const { registerKeyForId, subscribeToKeyForRegisteredId } =
     useRegisteredIdLookup();
   // build provider context (an object with methods to interact with the registry)
@@ -134,6 +144,20 @@ export const A11yProvider: FC<{ children: ReactNode }> = ({ children }) => {
             }
           }, [key, registerKeyForId]);
           return key ? id : undefined;
+        },
+        createComponentSpecificityId: () => {
+          const id = Symbol("Component stack ID");
+          componentStack.current.push(id);
+          return {
+            isComponentMostSpecific: () =>
+              componentStack.current[componentStack.current.length - 1] === id,
+            destroy: () => {
+              const poppedId = componentStack.current.pop();
+              if (poppedId !== id) {
+                throw new Error("Component specificity out of sync");
+              }
+            },
+          };
         },
       }),
     []
