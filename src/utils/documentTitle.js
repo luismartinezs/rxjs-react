@@ -1,4 +1,4 @@
-import { Subject, scan } from "rxjs";
+import { BehaviorSubject, scan } from "rxjs";
 
 const prioMap = {
   "page": 0,
@@ -6,7 +6,13 @@ const prioMap = {
   "alert": 2
 }
 
-const subject$ = new Subject();
+const initialState = {
+  title: "My App",
+  prio: prioMap["page"]
+}
+
+// BehaviorSubject holds an initial value even before anything is subscribed
+const subject$ = new BehaviorSubject(initialState);
 const source = subject$.pipe(
   scan((acc, curr) => {
     if (acc.prio <= curr.prio) {
