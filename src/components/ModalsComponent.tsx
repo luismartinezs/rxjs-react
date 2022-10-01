@@ -4,7 +4,7 @@ import { Modal } from "./Modal";
 // modals opening and closing trigger stack updates
 
 export const ModalsComponent: React.FC<{}> = () => {
-  const [show1, setShow1] = React.useState(false);
+  const [show1, setShow1] = React.useState(true);
   const [show2, setShow2] = React.useState(false);
   return (
     <div>
