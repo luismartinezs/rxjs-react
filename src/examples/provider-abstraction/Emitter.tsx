@@ -1,15 +1,15 @@
-import React from "react";
+import { FormEvent, useState } from "react";
 import { useStore } from "./store";
 
 export default function Emitter() {
-  const [inputs, setInputs] = React.useState<[string, any]>(["", ""]);
-  const [_key, _setKey] = React.useState("");
-  const [_value, _setValue] = React.useState("");
+  const [inputs, setInputs] = useState<[string, any]>(["", ""]);
+  const [_key, _setKey] = useState("");
+  const [_value, _setValue] = useState("");
 
   const { useUpdate } = useStore();
   useUpdate(...inputs);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!_key || !_value) {
       console.log("Key and value are required");
