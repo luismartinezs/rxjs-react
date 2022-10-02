@@ -3,6 +3,7 @@ import {
   FC,
   ReactNode,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -15,21 +16,25 @@ import {
   Subject,
 } from "rxjs";
 
-interface IContext {
-  // define types for hooks provided by context
-}
-
 interface IState {
   [index: string]: any;
 }
+
+type TContext = Readonly<{
+  // define types for hooks provided by context
+  useUpdate: (key: string, value: any) => void;
+  useSubscribe: () => IState;
+}>;
 
 // helper function
 const developerWarning = (): never => {
   throw new Error("Don't use a11y outside of a11y provider");
 };
 
-const Context = createContext<IContext>({
+const Context = createContext<TContext>({
   // provide hooks that components will execute to get state and methods
+  useUpdate: developerWarning,
+  useSubscribe: developerWarning,
 });
 
 // this is basically a store with initial state, mutations and getters
@@ -93,7 +98,34 @@ const useObservable = () => {
 export const useStore = () => useContext(Context);
 
 export const Provider: FC<{ children: ReactNode }> = ({ children }) => {
-  const context = {};
+  const { update, subscribe } = useObservable();
+
+  // generate immutable context only on mount
+  const context = useMemo<TContext>(
+    () =>
+      Object.freeze({
+        // define hook to update state
+        useUpdate: (key: string, value: any) => {
+          useEffect(() => {
+            if (key && value) {
+              update({ [key]: value });
+            }
+            // re-run this effect every time dependencies change
+          }, [key, value, update]);
+        },
+        // define hook to read state
+        useSubscribe: () => {
+          const [state, setState] = useState<IState>({});
+          useEffect(() => {
+            // returning this function call will unsubscribe on unmount
+            return subscribe(setState);
+            // subscribe only on mount
+          }, []);
+          return state;
+        },
+      }),
+    []
+  );
 
   return <Context.Provider value={context}>{children}</Context.Provider>;
 };

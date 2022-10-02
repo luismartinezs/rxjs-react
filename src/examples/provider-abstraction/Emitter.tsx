@@ -1,16 +1,23 @@
 import React from "react";
+import { useStore } from "./store";
 
 export default function Emitter() {
-  const [key, setKey] = React.useState("");
-  const [value, setValue] = React.useState("");
+  const [inputs, setInputs] = React.useState<[string, any]>(["", ""]);
+  const [_key, _setKey] = React.useState("");
+  const [_value, _setValue] = React.useState("");
+
+  const { useUpdate } = useStore();
+  useUpdate(...inputs);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!key || !value) {
+    if (!_key || !_value) {
       console.log("Key and value are required");
       return;
     }
-    console.log("submit", key, value);
+    setInputs([_key, _value]);
+    _setKey("");
+    _setValue("");
   };
 
   return (
@@ -22,8 +29,8 @@ export default function Emitter() {
             <input
               type="text"
               id="key"
-              value={key}
-              onChange={(e) => setKey(e.target.value)}
+              value={_key}
+              onChange={(e) => _setKey(e.target.value)}
             />
           </div>
           <div className="flex space-x-2">
@@ -31,8 +38,8 @@ export default function Emitter() {
             <input
               type="text"
               id="label"
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
+              value={_value}
+              onChange={(e) => _setValue(e.target.value)}
             />
           </div>
         </div>
