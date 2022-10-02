@@ -7,6 +7,7 @@ import Root from "./routes/root";
 import Number from "./routes/number";
 import A11yLabels from "./routes/a11yLabels";
 import Abstraction from "./routes/abstraction";
+import ProviderAbstraction from "./routes/providerAbstraction";
 import ErrorPage from "./error-page";
 import "./App.css";
 
@@ -29,6 +30,11 @@ const router = createBrowserRouter([
       {
         path: "abstraction",
         element: <Abstraction />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "provider",
+        element: <ProviderAbstraction />,
         errorElement: <ErrorPage />,
       },
     ],
