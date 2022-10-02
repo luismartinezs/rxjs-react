@@ -2,7 +2,9 @@ import { useState } from "react";
 import { useSharedNotes } from "../state";
 
 export default function Header() {
+  // internal value of the input
   const [value, setValue] = useState("");
+  // methods to push changes to store
   const { addNote, clear } = useSharedNotes();
 
   const handleChange = (e) => {
