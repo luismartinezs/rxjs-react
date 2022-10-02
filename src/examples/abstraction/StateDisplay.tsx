@@ -10,20 +10,20 @@ export default function StateDisplay() {
     store.init();
   }, []);
 
+  const stateList = [
+    { key: "name", value: state.name },
+    { key: "age", value: state.age },
+    { key: "active", value: state.active ? "Yes" : "No" },
+  ];
+
   return (
     <div className="rounded-lg bg-zinc-100 p-4 flex flex-col space-y-2">
-      <div>
-        <span className="text-zinc-500">Name: </span>
-        {state.name}
-      </div>
-      <div>
-        <span className="text-zinc-500">Age: </span>
-        {state.age}
-      </div>
-      <div>
-        <span className="text-zinc-500">Active: </span>
-        {state.active ? "Yes" : "No"}
-      </div>
+      {stateList.map(({ key, value }) => (
+        <div key={key} className="flex space-x-2">
+          <span className="font-bold">{key}:</span>
+          <span>{value}</span>
+        </div>
+      ))}
     </div>
   );
 }
