@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
 import Root from "./routes/root";
 import Number from "./routes/number";
 import A11yLabels from "./routes/a11yLabels";
+import Abstraction from "./routes/abstraction";
 import ErrorPage from "./error-page";
 import "./App.css";
 
@@ -23,6 +24,11 @@ const router = createBrowserRouter([
       {
         path: "labels",
         element: <A11yLabels />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "abstraction",
+        element: <Abstraction />,
         errorElement: <ErrorPage />,
       },
     ],

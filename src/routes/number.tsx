@@ -1,5 +1,5 @@
 import Root from "../examples/number/root";
 
-export default function Contact() {
+export default function Number() {
   return <Root />;
 }

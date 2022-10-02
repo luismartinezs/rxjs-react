@@ -11,6 +11,9 @@ export default function Root() {
           <li>
             <a href={`labels`}>Labels</a>
           </li>
+          <li>
+            <a href={`abstraction`}>Abstraction</a>
+          </li>
         </ul>
       </nav>
       <Outlet />
