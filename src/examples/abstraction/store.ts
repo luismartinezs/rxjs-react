@@ -7,7 +7,7 @@ const subject = new Subject<State>();
 
 const initialState = {
   name: "John",
-  age: 30,
+  age: 38,
   active: true,
 };
 

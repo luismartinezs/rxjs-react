@@ -17,13 +17,13 @@ export default function StateUpdater() {
         className="bg-sky-500 hover:bg-sky-600 text-white font-bold"
         onClick={() => handleUpdate()}
       >
-        Update state
+        Set Jane
       </button>
       <button
         className="bg-sky-500 hover:bg-sky-600 text-white font-bold"
         onClick={() => handleReset()}
       >
-        Reset state
+        Set John
       </button>
     </div>
   );
