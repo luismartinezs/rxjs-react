@@ -15,7 +15,7 @@ export default function Emitter() {
 
   return (
     <div>
-      <form className="flex flex-col" onSubmit={handleSubmit}>
+      <form className="flex items-center" onSubmit={handleSubmit}>
         <div className="flex space-x-4">
           <div className="flex space-x-2">
             <label htmlFor="key">Key</label>
@@ -36,7 +36,7 @@ export default function Emitter() {
             />
           </div>
         </div>
-        <button className="bg-sky-500 text-white font-bold mt-2 ml-auto hover:bg-sky-600">
+        <button className="bg-sky-500 text-white font-bold ml-2 ml-auto hover:bg-sky-600">
           Submit
         </button>
       </form>

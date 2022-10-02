@@ -22,8 +22,8 @@ const routeList = [
 export default function Root() {
   return (
     <>
-      <nav>
-        <ul className="flex space-x-4 place-content-center">
+      <nav className="mb-8">
+        <ul className="flex space-x-6 place-content-center">
           {routeList.map(({ href, label }) => (
             <li key={href}>
               <a href={href}>{label}</a>
