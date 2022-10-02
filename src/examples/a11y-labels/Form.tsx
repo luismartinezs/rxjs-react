@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useA11y } from "./store";
 import { Input } from "./Input";
 import { Label } from "./Label";
 

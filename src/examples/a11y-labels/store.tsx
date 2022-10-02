@@ -5,7 +5,6 @@ import {
   useContext,
   useEffect,
   useMemo,
-  useRef,
   useState,
 } from "react";
 import {
@@ -74,7 +73,7 @@ const useRegisteredIdLookup = () => {
     );
     return {
       registerKeyForId: (reg: { key: string; id: string }) => {
-        // add one key-id to the registry
+        // add key and id to the registry
         idRegistration$.next(reg);
         // callback to remove the id from the registry
         return () => idRegistration$.next({ key: reg.key, id: undefined });
