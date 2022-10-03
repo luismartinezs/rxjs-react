@@ -9,7 +9,9 @@ export default function Root() {
   return (
     <Provider>
       <p className="mb-2">
-        Open and close modals and see the document title change.
+        Open and close modals and see the document title change. There is an
+        internal priority set, i.e. in practice only some modals will update the
+        title.
       </p>
       <Subscriber />
       <button
