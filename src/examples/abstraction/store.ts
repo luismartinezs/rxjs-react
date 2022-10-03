@@ -11,7 +11,7 @@ const initialState = {
   active: true,
 };
 
-let state = initialState;
+const state = initialState;
 
 export const store = {
   init: () => subject.next(state),
