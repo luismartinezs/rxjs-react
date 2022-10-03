@@ -1,4 +1,4 @@
-import {
+import React, {
   createContext,
   FC,
   ReactNode,
@@ -111,7 +111,7 @@ export const Provider: FC<{ children: ReactNode }> = ({ children }) => {
               update({ [key]: value });
             }
             // re-run this effect every time dependencies change
-          }, [key, value, update]);
+          }, [key, value]);
         },
         // define hook to read state
         useSubscribe: () => {
@@ -124,7 +124,7 @@ export const Provider: FC<{ children: ReactNode }> = ({ children }) => {
           return state;
         },
       }),
-    []
+    [subscribe, update]
   );
 
   return <Context.Provider value={context}>{children}</Context.Provider>;
