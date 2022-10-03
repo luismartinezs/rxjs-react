@@ -8,6 +8,9 @@ export default function Root() {
 
   return (
     <Provider>
+      <p className="mb-2">
+        Open and close modals and see the document title change.
+      </p>
       <Subscriber />
       <button
         onClick={() =>
@@ -21,7 +24,7 @@ export default function Root() {
       >
         Open new modal
       </button>
-      <div className="text-sm">5 levels allowed</div>
+      <div className="text-sm">5 levels of modals allowed</div>
       <div className="relative">
         {count > 0 && (
           <Modal onClose={() => setCount(count - 1)} value="Alice">
